@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_lista_tareas_lista,access.lista.tareas.lista,model_lista_tareas_lista,base.group_user,1,1,1,1
+access_lista_tareas_etiqueta,access.lista.tareas.etiqueta,model_lista_tareas_etiqueta,base.group_user,1,1,1,1

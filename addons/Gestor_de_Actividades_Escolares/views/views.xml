@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_academia_curso_form" model="ir.ui.view">
+        <field name="name">academia.curso.form</field>
+        <field name="model">academia.curso</field>
+        <field name="arch" type="xml">
+            <form string="Curso">
+                <sheet>
+                    <group>
+                        <field name="nombre" />
+                        <field name="descripcion" />
+                        <field name="profesor_id" />
+                        <!-- COMPLETAR: Agregar lista de estudiantes inscritos -->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Comentario en la Views -->
+    <record id="view_holamundo" model="ir.ui.view">
+        <field name="name">hola.mundo</field>
+        <field name="model">ir.ui.view</field>
+        <field name="arch" type="xml">
+            <form string="Hola mundo">
+                <p>Hola mundo y  Sergio Cano Márquez</p>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_hola_mundo">
+        <field name="name">Hola mundo</field>
+        <field name="res_model">ir.ui.view</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_holamundo"/>
+        <field name="target">main</field>
+    </record>
+
+    <!-- Declaramos los menu -->
+    <menuitem id="holamundo_menu" name="Hola mundo" sequence="10" action="action_hola_mundo" />
+</odoo>

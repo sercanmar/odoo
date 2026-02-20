@@ -1,0 +1,25 @@
+{
+  "name": "Odoo (compose)",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "web",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "root",
+  "postStartCommand": "usermod -u ${localEnv:UID} odoo || true; groupmod -g ${localEnv:GID} odoo || true; chown -R odoo:odoo /mnt/extra-addons /etc/odoo || true",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.analysis.extraPaths": [
+          "/usr/lib/python3/dist-packages",
+          "/mnt/extra-addons"
+        ]
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  }
+}

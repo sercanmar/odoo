@@ -1,0 +1,120 @@
+<odoo>
+    <data>
+        <record id="view_evento_form" model="ir.ui.view">
+            <field name="name">Evento Form</field>
+            <field name="model">gestion.evento</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="nombre"/>
+                            <field name="fecha"/>
+                            <field name="ubicacion"/>
+                            <field name="responsable_id"/>
+                            <field name="asistentes_ids" widget="many2many_tags"/>
+                            <field name="sale_order_id"/>
+                            <field name="purchase_order_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_asistente_form" model="ir.ui.view">
+            <field name="name">Asistente Form</field>
+            <field name="model">gestion.asistente</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="nombre"/>
+                            <field name="email"/>
+                            <field name="eventos_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_evento_kanban" model="ir.ui.view">
+            <field name="name">Evento Kanban</field>
+            <field name="model">gestion.evento</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="ubicacion" records_draggable="1">
+                    <field name="nombre"/>
+                    <field name="ubicacion"/>
+                    <field name="fecha"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="o_kanban_details">
+                                <strong><field name="nombre"/></strong>
+                                <div><field name="fecha"/></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_evento_graph" model="ir.ui.view">
+            <field name="name">Evento Graph</field>
+            <field name="model">gestion.evento</field>
+            <field name="arch" type="xml">
+                <graph string="Asistentes por Evento" type="bar">
+                    <field name="nombre" type="row"/>
+                    <field name="total_asistentes" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_evento_calendar" model="ir.ui.view">
+            <field name="name">Evento Calendar</field>
+            <field name="model">gestion.evento</field>
+            <field name="arch" type="xml">
+                <calendar string="Calendario de Eventos" date_start="fecha">
+                    <field name="nombre"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_evento_list" model="ir.ui.view">
+            <field name="name">Evento List</field>
+            <field name="model">gestion.evento</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="nombre"/>
+                    <field name="fecha"/>
+                    <field name="ubicacion"/>
+                    <field name="total_asistentes"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_asistente_list" model="ir.ui.view">
+            <field name="name">Asistente List</field>
+            <field name="model">gestion.asistente</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="nombre"/>
+                    <field name="email"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_evento" model="ir.actions.act_window">
+            <field name="name">Eventos</field>
+            <field name="res_model">gestion.evento</field>
+            <field name="view_mode">kanban,list,form,calendar,graph</field>
+        </record>
+
+        <record id="action_asistente" model="ir.actions.act_window">
+            <field name="name">Asistentes</field>
+            <field name="res_model">gestion.asistente</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="menu_eventos_root" name="Gestión Eventos" sequence="10"/>
+        <menuitem id="menu_evento" parent="menu_eventos_root" action="action_evento" sequence="10"/>
+        <menuitem id="menu_asistente" parent="menu_eventos_root" action="action_asistente" sequence="20"/>
+    </data>
+</odoo>

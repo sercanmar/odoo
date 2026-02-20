@@ -1,0 +1,78 @@
+<record id="view_curso_form" model="ir.ui.view">
+    <field name="name">academia.curso.form</field>
+    <field name="model">academia.curso</field>
+    <field name="arch" type="xml">
+        <form string="Curso">
+            <sheet>
+                <group>
+                    <field name="nombre"/>
+                    <field name="descripcion"/>
+                    <field name="profesor_id"/>
+                </group>
+                <notebook>
+                    <page string="Estudiantes Inscritos">
+                        <field name="estudiantes_ids">
+                            <tree editable="bottom">
+                                <field name="nombre"/>
+                                <field name="email"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+
+            <div class="oe_chatter">
+                <field name="message_follower_ids"/>
+                <field name="message_ids"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+<record id="view_evaluacion_form" model="ir.ui.view">
+            <field name="name">academia.evaluacion.form</field>
+            <field name="model">academia.evaluacion</field>
+            <field name="arch" type="xml">
+                <form string="Evaluación">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="calificacion"/>
+                                <field name="fecha"/>
+                            </group>
+                            <group>
+                                <field name="curso_id"/>
+                                <field name="estudiante_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_evaluacion_tree" model="ir.ui.view">
+            <field name="name">academia.evaluacion.tree</field>
+            <field name="model">academia.evaluacion</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="curso_id"/>
+                    <field name="estudiante_id"/>
+                    <field name="calificacion"/>
+                    <field name="fecha"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_evaluacion" model="ir.actions.act_window">
+            <field name="name">Evaluaciones</field>
+            <field name="res_model">academia.evaluacion</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_evaluacion"
+                  parent="menu_academia_root"
+                  name="Evaluaciones"
+                  action="action_evaluacion"
+                  sequence="30"/>

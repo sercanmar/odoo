@@ -1,0 +1,80 @@
+<odoo>
+  <data>
+
+    <record id="view_lista_tareas_form" model="ir.ui.view">
+      <field name="name">lista.tareas.form</field>
+      <field name="model">lista_tareas.lista</field>
+      <field name="arch" type="xml">
+        <form string="Lista de Tareas">
+          <sheet>
+            <group>
+              <field name="tarea"/>
+              <field name="etiqueta_id"/>
+              <field name="tiempo_estimado"/>
+              <field name="urgente"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_lista_tareas_tree" model="ir.ui.view">
+      <field name="name">lista.tareas.list</field>
+      <field name="model">lista_tareas.lista</field>
+      <field name="arch" type="xml">
+        <list decoration-danger="urgente == True">
+          <field name="tarea"/>
+          <field name="etiqueta_id"/>
+          <field name="tiempo_estimado"/>
+          <field name="urgente"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="view_lista_tareas_kanban" model="ir.ui.view">
+      <field name="name">lista.tareas.kanban</field>
+      <field name="model">lista_tareas.lista</field>
+      <field name="arch" type="xml">
+        <kanban default_group_by="etiqueta_id">
+          <field name="tarea"/>
+          <field name="etiqueta_id"/>
+          <field name="tiempo_estimado"/>
+          <templates>
+            <t t-name="card">
+              <div class="oe_kanban_card">
+                <div class="fw-bold">
+                  <field name="tarea"/>
+                </div>
+                <div>
+                  <field name="etiqueta_id"/>
+                </div>
+                <div>Horas: <field name="tiempo_estimado"/></div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <record id="view_lista_tareas_graph" model="ir.ui.view">
+      <field name="name">lista.tareas.graph</field>
+      <field name="model">lista_tareas.lista</field>
+      <field name="arch" type="xml">
+        <graph string="Horas por Etiqueta" type="bar">
+          <field name="etiqueta_id" type="row"/>
+          <field name="tiempo_estimado" type="measure"/>
+        </graph>
+      </field>
+    </record>
+
+    <record id="action_lista_tareas" model="ir.actions.act_window">
+      <field name="name">Lista de Tareas</field>
+      <field name="res_model">lista_tareas.lista</field>
+      <field name="view_mode">kanban,list,form,graph</field>
+    </record>
+
+    <menuitem id="menu_lista_tareas_root" name="Gestión de Tareas"/>
+    <menuitem id="menu_lista_tareas" name="Lista de Tareas"
+              parent="menu_lista_tareas_root" action="action_lista_tareas"/>
+  </data>
+</odoo>

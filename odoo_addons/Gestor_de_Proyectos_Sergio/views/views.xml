@@ -1,0 +1,133 @@
+<odoo>
+    <data>
+        <record id="view_tarea_kanban" model="ir.ui.view">
+            <field name="name">Vista Kanban de Tareas</field>
+            <field name="model">gestor.tarea</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="estado" records_draggable="1">
+                    <field name="nombre"/>
+                    <field name="estado"/>
+                    <field name="fecha_limite"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="o_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="nombre"/>
+                                </strong>
+                                <div class="o_kanban_record_subtitle">
+                                    <field name="estado"/>
+                                </div>
+                                <div>
+                                    <field name="fecha_limite"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_tarea_graph" model="ir.ui.view">
+            <field name="name">Vista Gráfica de Tareas</field>
+            <field name="model">gestor.tarea</field>
+            <field name="arch" type="xml">
+                <graph string="Tareas por Responsable" type="bar">
+                    <field name="responsable_id" type="row"/>
+                    <field name="id" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_tarea_calendar" model="ir.ui.view">
+            <field name="name">Vista Calendario de Tareas</field>
+            <field name="model">gestor.tarea</field>
+            <field name="arch" type="xml">
+                <calendar string="Calendario de Tareas"
+                          date_start="fecha_inicio" date_stop="fecha_limite">
+                    <field name="nombre"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_tarea_list" model="ir.ui.view">
+            <field name="name">Vista Lista de Tareas</field>
+            <field name="model">gestor.tarea</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="nombre"/>
+                    <field name="estado"/>
+                    <field name="fecha_limite"/>
+                    <field name="responsable_id"/>
+                    <field name="proyecto_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_proyecto_list" model="ir.ui.view">
+            <field name="name">Vista Lista de Proyectos</field>
+            <field name="model">gestor.proyecto</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="nombre"/>
+                    <field name="descripcion"/>
+                    <field name="fecha_inicio"/>
+                    <field name="total_tareas"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_proyecto_form" model="ir.ui.view">
+            <field name="name">Vista Formulario de Proyectos</field>
+            <field name="model">gestor.proyecto</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="nombre" string="Nombre del Proyecto"/>
+                            <h1>
+                                <field name="nombre" placeholder="Nombre del proyecto..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="descripcion"/>
+                                <field name="fecha_inicio"/>
+                                <field name="fecha_fin"/>
+                            </group>
+                            <group>
+                                <field name="responsable_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Tareas">
+                                <field name="tarea_ids">
+                                    <list>
+                                        <field name="nombre"/>
+                                        <field name="estado"/>
+                                        <field name="responsable_id"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="accion_gestor_proyecto" model="ir.actions.act_window">
+            <field name="name">Proyectos</field>
+            <field name="res_model">gestor.proyecto</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="accion_gestor_tarea" model="ir.actions.act_window">
+            <field name="name">Tareas</field>
+            <field name="res_model">gestor.tarea</field>
+            <field name="view_mode">kanban,list,form,calendar,graph</field>
+        </record>
+
+        <menuitem id="menu_gestor_root" name="Gestor Proyectos" sequence="10"/>
+        <menuitem id="menu_proyecto" parent="menu_gestor_root" action="accion_gestor_proyecto" sequence="10"/>
+        <menuitem id="menu_tarea" parent="menu_gestor_root" action="accion_gestor_tarea" sequence="20"/>
+    </data>
+</odoo>
